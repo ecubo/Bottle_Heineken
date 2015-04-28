@@ -4,8 +4,8 @@ var app = {
         this.bindEvents();
     },
     bindEvents: function() {
-        //document.addEventListener('deviceready', this.onDeviceReady, false);
-        this.onDeviceReady();
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        //this.onDeviceReady();
     },
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
@@ -16,12 +16,17 @@ var app = {
 
         var inicicializado, initY, finalY, currentY, options, watchID;
 
-        $('button').on('click', function() {
-            inicicializado = false;
+        inicicializado = false;
 
-            options = { frequency: 200 };  // Update every 3 seconds
-            watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
-        });
+        options = { frequency: 200 };  // Update every 3 seconds
+        watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
+
+        // $('button').on('click', function() {
+        //     inicicializado = false;
+
+        //     options = { frequency: 200 };  // Update every 3 seconds
+        //     watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
+        // });
 
         function onSuccess(acceleration) {
             if (!inicicializado) {
@@ -57,7 +62,7 @@ var app = {
                 $('body').css('background-color','#fff');
                 navigator.accelerometer.clearWatch(watchID);
                 navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
-                setTimeout(function(){ 
+                setTimeout(function(){
                     navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
                 }, 700);
             }
