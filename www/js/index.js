@@ -14,37 +14,58 @@ var app = {
 
         FastClick.attach(document.body);
 
-        $('button').on('click', function() {
-            navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+        var inicicializado, initY, finalY, currentY, options, watchID;
 
-            var options = { frequency: 200 };  // Update every 3 seconds
-            var watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
+        $('button').on('click', function() {
+            inicicializado = false;
+
+            options = { frequency: 200 };  // Update every 3 seconds
+            watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
         });
 
+        function onSuccess(acceleration) {
+            if (!inicicializado) {
+                $('#init').text('Acceleration Y: ' + acceleration.y);
+                initY = acceleration.y;
+                inicicializado = true;
+            }
+            else {
+                $('#final').text('Acceleration Y: ' + acceleration.y);
+                finalY = acceleration.y;
+                inicicializado = false;
 
+                if (initY < -2 && finalY > 5) {
+                    $('body').css('background-color','#0f0');
+                }
+                else {
+                    $('body').css('background-color','#f00');
+                }
 
+                options = { frequency: 200 };  // Update every 3 seconds
+                watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
+            }
+        };
 
-function onSuccess(acceleration) {
-    $('#init').text('Acceleration X: ' + acceleration.x + '\n' +
-          'Acceleration Y: ' + acceleration.y + '\n' +
-          'Acceleration Z: ' + acceleration.z + '\n' +
-          'Timestamp: '      + acceleration.timestamp + '\n');
+        function onError() {
+            alert('onError!');
+        };
 
-};
+        function onSuccess2(acceleration) {
+            $('#y').text(acceleration.y);
+            currentY = acceleration.y;
+            if (currentY < -2) {
+                $('body').css('background-color','#fff');
+                navigator.accelerometer.clearWatch(watchID);
+                navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+                setTimeout(function(){ 
+                    navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+                }, 700);
+            }
+        };
 
-function onError() {
-    alert('onError!');
-};
-
-function onSuccess2(acceleration) {
-    $('#x').text(acceleration.x);
-    $('#y').text(acceleration.x);
-    $('#z').text(acceleration.x);
-};
-
-function onError2() {
-    alert('onError!');
-};
+        function onError2() {
+            alert('onError!');
+        };
 
 
 
