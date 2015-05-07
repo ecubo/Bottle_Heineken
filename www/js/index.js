@@ -16,17 +16,12 @@ var app = {
 
         var inicicializado, initY, finalY, currentY, options, watchID;
 
-        inicicializado = false;
+        $('button').on('click', function() {
+            inicicializado = false;
 
-        options = { frequency: 200 };  // Update every 3 seconds
-        watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
-
-        // $('button').on('click', function() {
-        //     inicicializado = false;
-
-        //     options = { frequency: 200 };  // Update every 3 seconds
-        //     watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
-        // });
+            options = { frequency: 200 };  // Update every 3 seconds
+            watchID = navigator.accelerometer.watchAcceleration(onSuccess2, onError2, options);
+        });
 
         function onSuccess(acceleration) {
             if (!inicicializado) {

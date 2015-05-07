@@ -25,17 +25,23 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <title>Bottle Heineken</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
+
+        <p id="init">Posición Inicial</p>
+        <p id="final">Posición Final</p>
+
+<!--         <p id="x">x</p> -->
+        <p id="y">y</p>
+<!--         <p id="z">z</p> -->
+
+        <button type="button">Iniciar</button>
+
+
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/libs/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/libs/fastclick.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

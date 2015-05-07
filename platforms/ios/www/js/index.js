@@ -4,8 +4,8 @@ var app = {
         this.bindEvents();
     },
     bindEvents: function() {
-        //document.addEventListener('deviceready', this.onDeviceReady, false);
-        this.onDeviceReady();
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        //this.onDeviceReady();
     },
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
@@ -57,7 +57,7 @@ var app = {
                 $('body').css('background-color','#fff');
                 navigator.accelerometer.clearWatch(watchID);
                 navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
-                setTimeout(function(){ 
+                setTimeout(function(){
                     navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
                 }, 700);
             }
